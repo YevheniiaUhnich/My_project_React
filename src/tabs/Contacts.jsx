@@ -1,5 +1,5 @@
 import Text from "../components/Text/Text";
-import { FcBinoculars } from "react-icons/fc";
+import { GoCodescanCheckmark } from "react-icons/go";
 import s from "../tabs/Contacts.module.css";
 import ContactForm from "../components/ContactForm/ContactForm";
 import SearchBox from "../components/SearchBox/SearchBox";
@@ -49,7 +49,7 @@ const Contacts = () => {
   return (
     <>
       <Text textAline="center">
-        Search for a contact by name <FcBinoculars className={s.icon} />
+        Search for a contact by name <GoCodescanCheckmark className={s.icon} />
       </Text>
 
       <div>

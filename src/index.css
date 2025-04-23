@@ -23,7 +23,8 @@ a:hover {
 }
 
 body {
-  background-color: #e6c2d8;
+  background: linear-gradient(155deg, #eebece 0%, #ffffff 40%, #e0e0e0 60%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin: 0;
   display: flex;
   place-items: start;

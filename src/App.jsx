@@ -6,6 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Todos from "./tabs/Todos";
 import Contacts from "./tabs/Contacts";
+import PhotosSearch from "./tabs/PhotosSearch";
 
 function App() {
   return (
@@ -14,12 +15,16 @@ function App() {
         <TabList>
           <Tab>Todos</Tab>
           <Tab>Contacts</Tab>
+          <Tab>Photos</Tab>
         </TabList>
         <TabPanel>
           <Todos />
         </TabPanel>
         <TabPanel>
           <Contacts />
+        </TabPanel>
+        <TabPanel>
+          <PhotosSearch />
         </TabPanel>
       </Tabs>
     </>

@@ -6,6 +6,7 @@
   border-radius: 0.5rem;
   padding: 10px;
   width: 280px;
+  background-color: rgb(245, 232, 236);
 }
 
 .contactLi {
@@ -46,8 +47,8 @@
 }
 
 .btnContact {
-  border: 2px solid gray;
-  background-color: rgb(205, 203, 207);
+  border: 2px solid rgb(163, 161, 161);
+  background-color: rgb(240, 211, 220);
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 4px;
