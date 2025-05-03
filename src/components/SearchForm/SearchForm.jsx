@@ -2,9 +2,9 @@ import toast from "react-hot-toast";
 import s from "./SearchForm.module.css";
 import { FcSearch } from "react-icons/fc";
 
-const initialValues = {
-  query: "",
-};
+// const initialValues = {
+//   query: "",
+// };
 
 export const SearchForm = ({ onSubmit }) => {
   const handleSubmit = (evt) => {
@@ -23,7 +23,7 @@ export const SearchForm = ({ onSubmit }) => {
     <header className={s.searchBarStyle}>
       <form
         onSubmit={handleSubmit}
-        initialValues={initialValues}
+        // initialValues={initialValues}
         className={s.form}>
         <div className={s.containerInput}>
           <FcSearch className={s.iconInput} />

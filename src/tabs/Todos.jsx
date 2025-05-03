@@ -1,7 +1,28 @@
-import Player from "../components/Player/Player";
+import HeaderBar from "../components/HeaderBar/HeaderBar";
+import TaskForm from "../components/TaskForm/TaskForm";
+import { TaskList } from "../components/TaskList/TaskList";
+import Layout from "../components/Layout/Layout";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchTasks } from "../redux/operations";
+import { selectIsLoading, selectError } from "../redux/tasksSlice";
 
-const Todos = () => {
-  return <Player source="http://media.w3.org/2010/05/sintel/trailer.mp4" />;
-};
+export default function Todos() {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-export default Todos;
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
+  return (
+    <div>
+      <Layout>
+        <HeaderBar />
+        <TaskForm />
+        {isLoading && !error && <b>Request in progress...</b>}
+        <TaskList />
+      </Layout>
+    </div>
+  );
+}
