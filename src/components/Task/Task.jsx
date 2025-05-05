@@ -22,7 +22,7 @@ export const Task = ({ task }) => {
         className={s.checkbox}
         checked={task.completed}
       />
-      <p className={task.text}>{task.text}</p>
+      <p className={s.taskText}>{task.text}</p>
       <button type="button" className={s.btnTask} onClick={handleDelete}>
         <MdClose size={24} />
       </button>

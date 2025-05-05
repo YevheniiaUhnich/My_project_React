@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 160px;
+}
+
+.taskText {
+  font-size: 16px;
+  font-weight: 600;
+  width: 200px;
+}
