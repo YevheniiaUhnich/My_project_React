@@ -1,0 +1,46 @@
+.input {
+  width: 400px;
+  height: 36px;
+  border: 3px solid;
+  border-image-slice: 1;
+  border-radius: 20px;
+  border-image-source: linear-gradient(45deg, #a18cd1, #fbc2eb);
+  padding-left: 50px;
+}
+.input:hover {
+  cursor: pointer;
+}
+
+.iconAddTodos {
+  font-size: 20px;
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 8px;
+  z-index: 1;
+}
+
+.btnAddTodo {
+  margin-top: 20px;
+  border: 3px solid;
+  border-image-slice: 1;
+  border-radius: 10px;
+  border-image-source: linear-gradient(45deg, #a18cd1, #fbc2eb);
+  background: -moz-linear-gradient(45deg, #a18cd1, #fbc2eb);
+  color: #383838;
+}
+
+.btnAddTodo:hover {
+  border: 3px solid;
+  border-image-slice: 1;
+  border-radius: 20px;
+  border-image-source: linear-gradient(45deg, #9585bd, #fbc2eb);
+  background: -moz-linear-gradient(45deg, #a18cd1, #fbc2eb);
+}
+
+.btnAddTodo:focus .btnAddTodo:focus-visible {
+  border: 3px solid;
+  border-image-slice: 1;
+  border-radius: 10px;
+  border-image-source: linear-gradient(45deg, #9585bd, #fbc2eb);
+  background: -moz-linear-gradient(45deg, #a18cd1, #fbc2eb);
+}

@@ -7,6 +7,7 @@ import "react-tabs/style/react-tabs.css";
 import Todos from "./tabs/Todos";
 import Contacts from "./tabs/Contacts";
 import PhotosSearch from "./tabs/PhotosSearch";
+import Token from "./tabs/Token";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Tab>Todos</Tab>
           <Tab>Contacts</Tab>
           <Tab>Photos</Tab>
+          <Tab>Token</Tab>
         </TabList>
         <TabPanel>
           <Todos />
@@ -25,6 +27,9 @@ function App() {
         </TabPanel>
         <TabPanel>
           <PhotosSearch />
+        </TabPanel>
+        <TabPanel>
+          <Token />
         </TabPanel>
       </Tabs>
     </>

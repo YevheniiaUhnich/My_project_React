@@ -28,7 +28,7 @@ export const SearchForm = ({ onSubmit }) => {
         <div className={s.containerInput}>
           <FcSearch className={s.iconInput} />
           <input
-            className={s.input}
+            className={s.inputGallery}
             type="text"
             name="query"
             autoComplete="off"

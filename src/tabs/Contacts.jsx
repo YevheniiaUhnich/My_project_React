@@ -1,6 +1,5 @@
 import Text from "../components/Text/Text";
 import { GoCodescanCheckmark } from "react-icons/go";
-import s from "../tabs/Contacts.module.css";
 import ContactForm from "../components/ContactForm/ContactForm";
 import SearchBox from "../components/SearchBox/SearchBox";
 import ContactList from "../components/ContactList/ContactList";
@@ -49,11 +48,11 @@ const Contacts = () => {
   return (
     <>
       <Text textAline="center">
-        Search for a contact by name <GoCodescanCheckmark className={s.icon} />
+        Search for a contact by name <GoCodescanCheckmark />
       </Text>
 
       <div>
-        <h1 className="title">Phonebook</h1>
+        <h1>Phonebook</h1>
         <ContactForm
           setClicks={setClicks}
           clicks={clicks}

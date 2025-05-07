@@ -1,4 +1,4 @@
-import { MdClose } from "react-icons/md";
+import { AiTwotoneDelete } from "react-icons/ai";
 import s from "./Task.module.css";
 import { useDispatch } from "react-redux";
 import { deleteTasks, toggleCompleted } from "../../redux/operations";
@@ -24,7 +24,7 @@ export const Task = ({ task }) => {
       />
       <p className={s.taskText}>{task.text}</p>
       <button type="button" className={s.btnTask} onClick={handleDelete}>
-        <MdClose size={24} />
+        <AiTwotoneDelete size={20} />
       </button>
     </div>
   );
