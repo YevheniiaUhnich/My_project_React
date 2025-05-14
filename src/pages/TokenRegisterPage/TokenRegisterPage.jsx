@@ -1,10 +1,9 @@
+import { useEffect } from "react";
 import { TokenRegisterForm } from "../../components/TokenRegisterForm/TokenRegisterForm";
 
 export default function TokenRegisterPage() {
-  return (
-    <>
-      <title>Registration</title>
-      <TokenRegisterForm />
-    </>
-  );
+  useEffect(() => {
+    document.title = "Register";
+  }, []);
+  return <TokenRegisterForm />;
 }

@@ -1,75 +1,78 @@
 import Text from "../components/Text/Text";
-import { GoCodescanCheckmark } from "react-icons/go";
-import ContactForm from "../components/ContactForm/ContactForm";
-import SearchBox from "../components/SearchBox/SearchBox";
-import ContactList from "../components/ContactList/ContactList";
-import contactsData from "../contactsData.json";
+// import { GoCodescanCheckmark } from "react-icons/go";
+import { selectIsLoggedIn } from "../redux/contactAuth/selectors";
+import { selectIsRefreshing } from "../redux/contactAuth/selectors";
+import { ContactAppBar } from "../components/ContactAppBar/ContactAppBar";
+import ContactHomePage from "../pages/ContactHomePage/ContactHomePage";
+import ContactRegistrationPage from "../pages/ContactRegistrationPage/ContactRegistrationPage";
+import ContactsPage from "../pages/ContactsPage/ContactsPage";
+import ContactLoginPage from "../pages/ContactLoginPage/ContactLoginPage";
+import { ContactRestrictedRoute } from "../components/ContactRestrictedRoute";
+import { ContactPrivateRoute } from "../components/ContactPrivateRoute";
 import "../App.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { refreshUser } from "../redux/contactAuth/operation";
+import { fetchContacts } from "../redux/contacts/operation";
+import Layout from "../components/Layout/Layout";
+import { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
-const Contacts = () => {
-  const [contacts, setContacts] = useState(() => {
-    const savedContacts = localStorage.getItem("savedContacts");
-    return savedContacts ? JSON.parse(savedContacts) : contactsData;
-  });
-
-  const [contactValue, setContactValue] = useState("");
-
-  const [clicks, setClicks] = useState(() => {
-    const savedClicks = localStorage.getItem("savedClicks");
-    return savedClicks !== null ? JSON.parse(savedClicks) : 0;
-  });
+export default function Contacts() {
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
-    localStorage.setItem("savedClicks", JSON.stringify(clicks));
-  }, [clicks]);
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   useEffect(() => {
-    localStorage.setItem("savedContacts", JSON.stringify(contacts));
-  }, [contacts]);
+    if (isLoggedIn) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, isLoggedIn]);
 
-  const handleDeleteContacts = (id) => {
-    const newData = contacts.filter((contactsData) => contactsData.id !== id);
-    console.log(newData);
-    setContacts(newData);
-  };
+  return isRefreshing ? (
+    <strong className="refresh">Refreshing user...</strong>
+  ) : (
+    <Layout>
+      <ContactAppBar />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<ContactHomePage />} />
 
-  const addContact = (contact) => {
-    const newContact = {
-      id: crypto.randomUUID(),
-      ...contact,
-    };
-    setContacts([...contacts, newContact]);
-  };
+          <Route
+            path="/login"
+            element={
+              <ContactRestrictedRoute
+                redirectTo="/contacts"
+                element={<ContactLoginPage />}
+              />
+            }
+          />
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(contactValue.toLowerCase())
+          <Route
+            path="/register"
+            element={
+              <ContactRestrictedRoute
+                redirectTo="/contacts"
+                element={<ContactRegistrationPage />}
+              />
+            }
+          />
+
+          <Route
+            path="/contacts"
+            element={
+              <ContactPrivateRoute
+                redirectTo="/login"
+                element={<ContactsPage />}
+              />
+            }
+          />
+        </Routes>
+      </Suspense>
+    </Layout>
   );
-  return (
-    <>
-      <Text textAline="center">
-        Search for a contact by name <GoCodescanCheckmark />
-      </Text>
-
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm
-          setClicks={setClicks}
-          clicks={clicks}
-          addContact={addContact}
-        />
-
-        <SearchBox
-          contactValue={contactValue}
-          setContactValue={setContactValue}
-        />
-        <ContactList
-          // contacts={contacts}
-          handleDeleteContacts={handleDeleteContacts}
-          contacts={filteredContacts}
-        />
-      </div>
-    </>
-  );
-};
-export default Contacts;
+}

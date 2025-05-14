@@ -13,9 +13,12 @@ export default function TokenTaskPage() {
     dispatch(fetchTask());
   }, [dispatch]);
 
+  useEffect(() => {
+    document.title = "Your tasks";
+  }, []);
+
   return (
     <>
-      <title>Your tasks</title>
       <TokenTaskEditor />
       <div>{isLoading && "Request in progress"}</div>
       <TokenTaskList />

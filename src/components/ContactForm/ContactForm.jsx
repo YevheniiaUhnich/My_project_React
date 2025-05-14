@@ -3,9 +3,12 @@ import s from "./ContactForm.module.css";
 import * as Yup from "yup";
 import { useId } from "react";
 import React from "react";
-import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
+import { addContacts } from "../../redux/contacts/operation";
+import { toast } from "react-toastify";
 
-const ContactForm = ({ setClicks, clicks, addContact }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
   const nameFieldId = useId();
   const numberFieldId = useId();
 
@@ -20,30 +23,36 @@ const ContactForm = ({ setClicks, clicks, addContact }) => {
       .required("Number is required to fill"),
   });
 
-  const initialValues = () => ({
+  const initialValues = {
     name: "",
     number: "",
-  });
-
-  const handleSubmit = (values, actions) => {
-    const newContact = {
-      id: nanoid(),
-      ...values,
-    };
-
-    addContact(newContact);
-    setClicks(clicks + 1);
-    actions.resetForm();
   };
+
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      dispatch(
+        addContacts({
+          name: values.name,
+          number: values.number,
+        })
+      );
+      toast.success("Contact added successfully!");
+      resetForm();
+    } catch (error) {
+      console.error("Error adding contact:", error);
+      toast.error("Error adding contact. Please try again.");
+    }
+  };
+
   return (
     <div className={s.wrapper}>
       <Formik
-        initialValues={initialValues()}
+        initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={ContactSchema}>
         <Form className={s.formWrapper}>
           <label htmlFor={nameFieldId} className={s.label}>
-            <span>Name</span>
+            <span className={s.textSpan}>Name</span>
             <Field
               className={s.input}
               type="text"
@@ -58,7 +67,7 @@ const ContactForm = ({ setClicks, clicks, addContact }) => {
           </label>
 
           <label htmlFor={numberFieldId} className={s.label}>
-            <span>Number</span>
+            <span className={s.textSpan}>Number</span>
             <Field
               className={s.input}
               type="tel"

@@ -1,12 +1,20 @@
 import s from "./ContactList.module.css";
 import Contact from "../Contact/Contact";
+import { useSelector } from "react-redux";
+import { selectFilteredContacts } from "../../redux/contactFilters/selectors";
 
-const ContactList = ({ contacts, handleDeleteContacts }) => {
+const ContactList = () => {
+  const filteredContacts = useSelector(selectFilteredContacts);
+
+  if (filteredContacts.length === 0) {
+    return <p>No contacts found...</p>;
+  }
+
   return (
     <ul className={s.contactList}>
-      {contacts.map((contact) => (
+      {filteredContacts.map((contact) => (
         <li className={s.contactLi} key={contact.id}>
-          <Contact contact={contact} onDelete={handleDeleteContacts} />
+          <Contact contact={contact} />
         </li>
       ))}
     </ul>

@@ -7,11 +7,11 @@ import { selectIsLoggedIn } from "../redux/tokenAuth/selectors";
  * -Otherwise render <Navigate> to redirectTo
  */
 
-export const TokenRestrictedRoute = ({
-  component: Component,
-  redirectTo = "/",
-}) => {
+export const TokenRestrictedRoute = ({ element, redirectTo = "/tasks" }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  return isLoggedIn ? Component : <Navigate to={redirectTo} />;
+  if (isLoggedIn) {
+    return <Navigate to={redirectTo} />;
+  }
+  return element;
 };

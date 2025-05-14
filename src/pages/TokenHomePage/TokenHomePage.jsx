@@ -1,7 +1,11 @@
+import { useEffect } from "react";
+
 export default function TokenHomePage() {
+  useEffect(() => {
+    document.title = "Task Manager";
+  }, []);
   return (
     <>
-      <title>Welcome</title>
       <div>
         <h1>Task manager welcome page{""}</h1>
       </div>

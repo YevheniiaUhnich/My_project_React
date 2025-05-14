@@ -19,15 +19,19 @@ function App() {
           <Tab>Photos</Tab>
           <Tab>Token</Tab>
         </TabList>
+
         <TabPanel>
           <Todos />
         </TabPanel>
+
         <TabPanel>
           <Contacts />
         </TabPanel>
+
         <TabPanel>
           <PhotosSearch />
         </TabPanel>
+
         <TabPanel>
           <Token />
         </TabPanel>

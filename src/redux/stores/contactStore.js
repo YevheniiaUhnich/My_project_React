@@ -1,6 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import tasksReducer from "./tasksSlice";
-import filtersReducer from "./filtersSlice";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import contactsReducer from "../../redux/contacts/slice";
+import filtersReducer from "../../redux/contactFilters/slice";
+import authReducer from "../../redux/contactAuth/slice";
 import {
   persistStore,
   persistReducer,
@@ -12,9 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { authReducer } from "./tokenAuth/slice";
-
-// Persisting token field from auth slice to localstorage
+import modalReducer from "../../redux/contactModal/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -22,12 +21,15 @@ const authPersistConfig = {
   whitelist: ["token"],
 };
 
+const rootReducer = combineReducers({
+  contacts: contactsReducer,
+  filters: filtersReducer,
+  auth: persistReducer(authPersistConfig, authReducer),
+  modal: modalReducer,
+});
+
 export const store = configureStore({
-  reducer: {
-    tasks: tasksReducer,
-    filters: filtersReducer,
-    auth: persistReducer(authPersistConfig, authReducer),
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
