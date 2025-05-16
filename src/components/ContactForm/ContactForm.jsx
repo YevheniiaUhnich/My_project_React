@@ -35,7 +35,7 @@ const ContactForm = () => {
           name: values.name,
           number: values.number,
         })
-      );
+      ).unwrap();
       toast.success("Contact added successfully!");
       resetForm();
     } catch (error) {

@@ -1,10 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios";
+import contactApi from "../../api/contactApi";
 
-axios.defaults.baseURL = "https://connections-api.goit.global/";
+// axios.defaults.baseURL = "https://connections-api.goit.global/";
 
 const setAuthHeader = (token) => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  console.log("Setting auth header:", token);
+  contactApi.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 export const fetchContacts = createAsyncThunk(
@@ -20,7 +22,7 @@ export const fetchContacts = createAsyncThunk(
     setAuthHeader(token);
 
     try {
-      const response = await axios.get("/contacts");
+      const response = await contactApi.get("/contacts");
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -41,7 +43,7 @@ export const addContacts = createAsyncThunk(
     setAuthHeader(token);
 
     try {
-      const response = await axios.post("/contacts", newContact);
+      const response = await contactApi.post("/contacts", newContact);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -61,7 +63,7 @@ export const deleteContacts = createAsyncThunk(
 
     setAuthHeader(token);
     try {
-      const response = await axios.delete(`/contacts/${contactsId}`);
+      const response = await contactApi.delete(`/contacts/${contactsId}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -73,7 +75,10 @@ export const editContact = createAsyncThunk(
   "contacts/updateContact",
   async ({ id, name, number }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`/contacts/${id}`, { name, number });
+      const response = await contactApi.patch(`/contacts/${id}`, {
+        name,
+        number,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
